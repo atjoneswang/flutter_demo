@@ -66,3 +66,5 @@ fonts:
     fonts:
       - asset: assets/fonts/Poppins-SemiBold.ttf
         weight: 600
+      - asset: assets/fonts/Poppins-Regular.ttf
+        weight: 400
