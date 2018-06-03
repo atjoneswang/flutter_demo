@@ -34,6 +34,12 @@ flutter:
     - images/pic2.jpg
     - images/pic3.jpg
     - assets/images/mars.png
+    - assets/images/earth.png
+    - assets/images/mercury.png
+    - assets/images/moon.png
+    - assets/images/neptune.png
+    - assets/images/ic_distance.png
+    - assets/images/ic_gravity.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

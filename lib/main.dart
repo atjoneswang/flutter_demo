@@ -5,7 +5,8 @@ import 'package:flutter_demo/Layout1HomePage.dart';
 import 'package:flutter_demo/GradientAppBar.dart';
 
 void main() {
-  debugPaintSizeEnabled = false;
+  debugPaintSizeEnabled = true;
+  debugPaintLayerBordersEnabled = true;
   runApp(new HomePage());
 }
 
@@ -18,7 +19,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Widget titleSection = new Container(
       padding: const EdgeInsets.all(32.0),
       child: new Row(
@@ -108,7 +108,11 @@ Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situate
         appBar: new AppBar(
           backgroundColor: Colors.white,
           elevation: 0.0,
-          title: new Text('Top Lakes',style: new TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),),
+          title: new Text(
+            'Top Lakes',
+            style: new TextStyle(
+                color: Colors.black54, fontWeight: FontWeight.bold),
+          ),
         ),
         body: new ListView(
           children: <Widget>[
@@ -128,7 +132,6 @@ Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situate
   }
 }
 
-
 class Hello extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -136,8 +139,8 @@ class Hello extends StatelessWidget {
       decoration: new BoxDecoration(color: Colors.white),
       child: new Center(
         child: new Text(
-            'Hello World',
-          textDirection:  TextDirection.ltr,
+          'Hello World',
+          textDirection: TextDirection.ltr,
           style: new TextStyle(fontSize: 40.0, color: Colors.black87),
         ),
       ),
@@ -151,16 +154,13 @@ class Layout1 extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.blueGrey
+      theme: new ThemeData(primarySwatch: Colors.blueGrey),
+      home: new Layout1HomePage(
+        title: 'Flutter Demo home Page',
       ),
-      home: new Layout1HomePage(title: 'Flutter Demo home Page',),
     );
-
   }
 }
-
-
 
 class RandomWords extends StatefulWidget {
   @override
