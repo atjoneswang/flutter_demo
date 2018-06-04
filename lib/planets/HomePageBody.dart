@@ -21,7 +21,6 @@ class PlanetRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final planetCardContent = new Container(
       margin: new EdgeInsets.fromLTRB(76.0, 16.0, 16.0, 16.0),
       constraints: new BoxConstraints.expand(),
@@ -50,15 +49,13 @@ class PlanetRow extends StatelessWidget {
           ),
           new Row(
             children: <Widget>[
-              new Image.asset("assets/images/ic_distance.png",height: 12.0,),
-              new Container(width: 8.0,),
-              new Text(_planet.distance,
-              style: Style.regularTextStyle,
+              new Expanded(
+                child: _planetValue(
+                    'assets/images/ic_distance.png', _planet.distance),
               ),
-              new Container(width: 24.0,),
-              new Image.asset('assets/images/ic_gravity.png', height: 12.0,),
-              new Text(_planet.gravity,
-              style: Style.regularTextStyle,
+              new Expanded(
+                child: _planetValue(
+                    'assets/images/ic_gravity.png', _planet.gravity),
               )
             ],
           ),
@@ -89,13 +86,9 @@ class PlanetRow extends StatelessWidget {
               offset: new Offset(0.0, 10.0),
             ),
           ]),
-          child: new Container(
-            margin: new EdgeInsets.only(top: 6.0, left: 2.0),
-            child: planetCardContent,
-          ),
+      child: planetCardContent,
     );
 
-    
     return new Container(
       height: 120.0,
       margin: const EdgeInsets.symmetric(
@@ -109,5 +102,18 @@ class PlanetRow extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _planetValue(String image, String value) {
+    return new Row(children: <Widget>[
+      new Image.asset(
+        image,
+        height: 12.0,
+      ),
+      new Container(
+        width: 8.0,
+      ),
+      new Text(value, style: Style.regularTextStyle),
+    ]);
   }
 }
