@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/rendering.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_demo/GradientAppBar.dart';
 
 void main() {
   debugPaintSizeEnabled = true;
-  debugPaintLayerBordersEnabled = true;
   runApp(new HomePage());
 }
 
