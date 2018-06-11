@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/planets/models/Planet.dart';
 import 'TextStyle.dart';
+import 'DetailPage.dart';
 
 class HomePageBody extends StatelessWidget {
   @override
@@ -79,11 +80,15 @@ class PlanetRow extends StatelessWidget {
     final planetThumbnail = new Container(
       margin: new EdgeInsets.symmetric(vertical: 16.0),
       alignment: FractionalOffset.centerLeft,
-      child: new Image(
+      child: new Hero(
+        tag: 'planet-hero-${_planet.id}',
+        child: new Image(
         image: new AssetImage(_planet.image),
         height: 92.0,
         width: 92.0,
       ),
+      ),
+      
     );
     final planetCard = new Container(
       height: 124.0,
@@ -102,19 +107,25 @@ class PlanetRow extends StatelessWidget {
       child: planetCardContent,
     );
 
-    return new Container(
-      height: 120.0,
-      margin: const EdgeInsets.symmetric(
-        vertical: 16.0,
-        horizontal: 24.0,
-      ),
-      child: new Stack(
+    return new GestureDetector(
+      onTap: () => Navigator.of(context).push(new PageRouteBuilder(
+        pageBuilder: (_,__,___) => new DetailPage(_planet),
+      )),
+      child: new Container(
+        height: 120.0,
+        margin: const EdgeInsets.symmetric(
+          vertical: 16.0,
+          horizontal: 24.0,
+        ),
+        child: new Stack(
         children: <Widget>[
           planetCard,
           planetThumbnail,
         ],
       ),
+      ),
     );
+
   }
 
   Widget _planetValue(String image, String value) {
