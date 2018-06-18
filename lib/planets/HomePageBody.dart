@@ -17,7 +17,7 @@ class HomePageBody extends StatelessWidget {
               sliver: new SliverFixedExtentList(
                 itemExtent: 152.0,
                 delegate: new SliverChildBuilderDelegate(
-                  (context, index) => new PlanetRow(planets[index]),
+                  (context, index) => new PlanetSummary(planets[index]),
                   childCount: planets.length,
                 ),
               ),
@@ -29,17 +29,19 @@ class HomePageBody extends StatelessWidget {
   }
 }
 
-class PlanetRow extends StatelessWidget {
+class PlanetSummary extends StatelessWidget {
   final Planet _planet;
-  PlanetRow(this._planet);
+  final bool horizontal;
+  PlanetSummary(this._planet, {this.horizontal = true});
+  PlanetSummary.vertical(this._planet) : horizontal = false;
 
   @override
   Widget build(BuildContext context) {
     final planetCardContent = new Container(
-      margin: new EdgeInsets.fromLTRB(76.0, 16.0, 16.0, 16.0),
+      margin: new EdgeInsets.fromLTRB(horizontal ? 76.0:16.0, horizontal ? 16.0 : 42.0, 16.0, 16.0),
       constraints: new BoxConstraints.expand(),
       child: new Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: horizontal ? CrossAxisAlignment.start: CrossAxisAlignment.center,
         children: <Widget>[
           new Container(
             height: 4.0,
@@ -62,12 +64,18 @@ class PlanetRow extends StatelessWidget {
             color: new Color(0xff00c6ff),
           ),
           new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Expanded(
+                flex: horizontal ? 1 : 0,
                 child: _planetValue(
                     'assets/images/ic_distance.png', _planet.distance),
               ),
+              new Container(
+                width: 32.0,
+              ),
               new Expanded(
+                flex: horizontal ? 1 : 0,
                 child: _planetValue(
                     'assets/images/ic_gravity.png', _planet.gravity),
               )
@@ -79,20 +87,20 @@ class PlanetRow extends StatelessWidget {
 
     final planetThumbnail = new Container(
       margin: new EdgeInsets.symmetric(vertical: 16.0),
-      alignment: FractionalOffset.centerLeft,
+      alignment:
+          horizontal ? FractionalOffset.centerLeft : FractionalOffset.center,
       child: new Hero(
         tag: 'planet-hero-${_planet.id}',
         child: new Image(
-        image: new AssetImage(_planet.image),
-        height: 92.0,
-        width: 92.0,
+          image: new AssetImage(_planet.image),
+          height: 92.0,
+          width: 92.0,
+        ),
       ),
-      ),
-      
     );
     final planetCard = new Container(
-      height: 124.0,
-      margin: new EdgeInsets.only(left: 46.0),
+      height: horizontal ?  124.0 : 154.0,
+      margin: horizontal ? new EdgeInsets.only(left: 46.0) : new EdgeInsets.only(top: 72.0),
       decoration: new BoxDecoration(
           color: new Color(0xff333366),
           shape: BoxShape.rectangle,
@@ -108,36 +116,37 @@ class PlanetRow extends StatelessWidget {
     );
 
     return new GestureDetector(
-      onTap: () => Navigator.of(context).push(new PageRouteBuilder(
-        pageBuilder: (_,__,___) => new DetailPage(_planet),
-      )),
+      onTap: horizontal ? () => Navigator.of(context).push(new PageRouteBuilder(
+            pageBuilder: (_, __, ___) => new DetailPage(_planet),
+            transitionsBuilder: (context,animation, secondaryAnimation, child) => new FadeTransition(opacity: animation, child: child),
+          ),)  : null,
       child: new Container(
-        height: 120.0,
         margin: const EdgeInsets.symmetric(
           vertical: 16.0,
           horizontal: 24.0,
         ),
         child: new Stack(
-        children: <Widget>[
-          planetCard,
-          planetThumbnail,
-        ],
-      ),
+          children: <Widget>[
+            planetCard,
+            planetThumbnail,
+          ],
+        ),
       ),
     );
-
   }
 
   Widget _planetValue(String image, String value) {
-    return new Row(children: <Widget>[
-      new Image.asset(
-        image,
-        height: 12.0,
-      ),
-      new Container(
-        width: 8.0,
-      ),
-      new Text(value, style: Style.regularTextStyle),
-    ]);
+    return new Container(
+      child: new Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+        new Image.asset(
+          image,
+          height: 12.0,
+        ),
+        new Container(
+          width: 8.0,
+        ),
+        new Text(value, style: Style.regularTextStyle),
+      ]),
+    );
   }
 }

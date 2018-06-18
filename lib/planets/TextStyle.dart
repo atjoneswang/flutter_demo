@@ -20,4 +20,8 @@ class Style {
   static final subHeaderTextStyle = regularTextStyle.copyWith(
     fontSize: 12.0
   );
+
+  static final commonTextStyle = regularTextStyle.copyWith(
+    fontSize: 12.0
+  );
 }
